@@ -1,3 +1,4 @@
+import { InitialModal } from "@/components/modals/initial-modal"
 import { db } from "@/lib/db"
 import { initialProfile } from "@/lib/initial-profile"
 import { redirect } from "next/navigation"
@@ -23,9 +24,7 @@ const SetupPage = async () => {
     
     //but, if there is no server belong to, should inform message to create or join server.
     return (
-        <div>
-            Create a Server
-        </div>
+        <InitialModal />
     )
 }
 
