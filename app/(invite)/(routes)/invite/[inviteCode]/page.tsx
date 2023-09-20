@@ -18,7 +18,7 @@ const InviteCodePage = async ({
         return redirectToSignIn()
     }
 
-    if(!params) {
+    if(!params.inviteCode) {
         return redirect("/")
     }
 
@@ -52,11 +52,11 @@ const InviteCodePage = async ({
         }
     })
 
-    return (
-        <div>
-            page
-        </div>
-    )
+    if(server) {
+        return redirect(`/servers/${server.id}`)
+    }
+
+    return null
 }
 
 export default InviteCodePage

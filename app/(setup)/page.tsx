@@ -19,7 +19,7 @@ const SetupPage = async () => {
     // search all servers and find the first server which is member of that server, and load it by general channel
     
     if(server) {
-        return redirect(`/server/${server.id}`)
+        return redirect(`/servers/${server.id}`)
     }
     
     //but, if there is no server belong to, should inform message to create or join server.

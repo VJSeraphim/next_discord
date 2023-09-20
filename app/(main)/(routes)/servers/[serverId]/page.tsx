@@ -1,6 +1,8 @@
 const ServerPage = () => {
   return (
-    <div>ServerPage</div>
+    <div>
+      ServerPage
+    </div>
   )
 }
 
