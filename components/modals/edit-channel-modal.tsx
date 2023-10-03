@@ -9,7 +9,6 @@ import axios from "axios"
 import {
     Dialog,
     DialogContent,
-    DialogDescription,
     DialogFooter,
     DialogHeader,
     DialogTitle
@@ -51,29 +50,28 @@ const formSchema = z.object({
 })
 
 
-export const CreateChannelModal = () => {
+export const EditChannelModal = () => {
     const { isOpen, onClose, type, data } = useModal()
     const router = useRouter()
     const params = useParams()
 
-    const isModalOpen = isOpen && type === "createChannel"
-    const { channelType } = data
+    const isModalOpen = isOpen && type === "editChannel"
+    const { channel, server } = data
 
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
             name: "",
-            type: channelType || ChannelType.TEXT
+            type: channel?.type || ChannelType.TEXT
         }
     })
 
     useEffect(() => {
-        if(channelType) {
-            form.setValue("type", channelType)
-        } else {
-            form.setValue("type", ChannelType.TEXT)
+        if(channel) {
+            form.setValue("name", channel.name)
+            form.setValue("type", channel.type)
         }
-    }, [channelType, form])
+    }, [form, channel])
 
     const isLoading = form.formState.isSubmitting
 
@@ -104,11 +102,8 @@ export const CreateChannelModal = () => {
             <DialogContent className="bg-white text-black p-0 overflow-hidden">
                 <DialogHeader className="pt-8 px-6">
                     <DialogTitle className="text-2xl text-center font-bold">
-                        Create New Channel
+                        Edit New Channel
                     </DialogTitle>
-                    <DialogDescription className="text-center text-zinc-500">
-                        New place for a new cup of tea.
-                    </DialogDescription>
                 </DialogHeader>
                 <Form {...form}>
                     <form 
