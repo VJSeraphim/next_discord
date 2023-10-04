@@ -24,7 +24,7 @@ import {
 
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
-import { useParams, useRouter } from "next/navigation"
+import { useRouter } from "next/navigation"
 import { useModal } from "@/hooks/use-modal-store"
 import {
     Select,
@@ -53,7 +53,6 @@ const formSchema = z.object({
 export const EditChannelModal = () => {
     const { isOpen, onClose, type, data } = useModal()
     const router = useRouter()
-    const params = useParams()
 
     const isModalOpen = isOpen && type === "editChannel"
     const { channel, server } = data
@@ -71,19 +70,19 @@ export const EditChannelModal = () => {
             form.setValue("name", channel.name)
             form.setValue("type", channel.type)
         }
-    }, [form, channel])
+    }, [form, channel]) // should be dynamically changed
 
     const isLoading = form.formState.isSubmitting
 
     const onSubmit = async(values: z.infer<typeof formSchema>) => {
         try {
-            const url = await qs.stringifyUrl({
-                url: "/api/channels",
+            const url = qs.stringifyUrl({
+                url: `/api/channels/${channel?.id}`,
                 query: {
-                    serverId: params?.serverId
+                    serverId: server?.id
                 }
             })
-            await axios.post(url, values)
+            await axios.patch(url, values)
             form.reset()
             router.refresh()
             onClose()
