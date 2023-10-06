@@ -169,7 +169,7 @@ export const ServerSidebar = async ({
                             sectionType="channels"
                             channelType={ChannelType.VIDEO}
                             role={role}
-                            label="Text Channels"
+                            label="Video Channels"
                         />
                         <div className="space-y-[2px]">
                             {videoChannels.map((channel) => (
@@ -188,7 +188,7 @@ export const ServerSidebar = async ({
                         <ServerSection
                             sectionType="members"
                             role={role}
-                            label="Text Channels"
+                            label="Members"
                             server={server}
                         />
                         {members.map((member) => (
