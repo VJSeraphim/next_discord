@@ -1,0 +1,7 @@
+This version of Next.js 13.4 is not perfectly compatible with Web Socket.io.
+It could be deprecated by further Next updates.
+
+This pages folder is for Next.js version 12 and older,
+but since it it not perfectly compatible with current Next.js 13.4,
+and should be applied in this way.
+
