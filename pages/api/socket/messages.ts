@@ -44,7 +44,7 @@ export default async function handler (
         })
 
         if(!server) {
-            return res.status(404).json({message: "Server Not Found"})
+            return res.status(404).json({error: "Server Not Found"})
         }
 
         const channel = await db.channel.findFirst({
@@ -55,15 +55,13 @@ export default async function handler (
         })
         
         if(!channel) {
-            return res.status(404).json({message: "Channel Not Found"})
+            return res.status(404).json({error: "Channel Not Found"})
         }
 
-        const member = server.members.find((member) => {
-            member.profileId === profile.id
-        })
+        const member = server.members.find((member) => member.profileId === profile.id)
 
         if(!member) {
-            return res.status(404).json({message: "Member Not Found"})
+            return res.status(404).json({error: "Member Not Found"})
         }
 
         const message = await db.message.create({
