@@ -8,6 +8,7 @@ import axios from "axios"
 import qs from "query-string"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useRouter, useParams } from "next/navigation"
 
 import { Member, MemberRole, Profile } from "@prisma/client"
 
@@ -63,6 +64,8 @@ export const ChatItem = ({
 }: ChatItemProps) => {
     const [isEditing, setIsEditing] = useState(false)
     const { onOpen } = useModal()
+    const params = useParams()
+    const router = useRouter()
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -71,6 +74,13 @@ export const ChatItem = ({
         }
     })
 
+    const onMemberClick = () => {
+        if(member.id === currentMember.id) {
+            return
+        }
+
+        router.push(`/servers/${params?.serverId}/conversations/${member.id}`)
+    }
     useEffect(() => {
         form.reset({
             content: content
@@ -120,7 +130,7 @@ export const ChatItem = ({
     return (
         <div className="relative group flex items-center hover:bg-black/5 p-4 transition w-full">
             <div className="group flex gap-x-2 items-start w-full">
-                <div className="cursor-pointer hover:drop-shadow-md transition">
+                <div onClick={onMemberClick} className="cursor-pointer hover:drop-shadow-md transition">
                     <UserAvatar src={member.profile.imageUrl} />
                 </div>
                 <div className="flex flex-col w-full">

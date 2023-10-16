@@ -41,7 +41,10 @@ export const useChatQuery = ({
         queryKey: [queryKey],
         queryFn: fetchMessages,
         getNextPageParam: (lastPage) => lastPage.nextCursor,
+        //refetchInterval : 1000
         refetchInterval : isConnected ? false : 1000
+        // Hardcoded to 1000 ms, because of Next13 version has been upgraded
+        // and breaks the websocket
     })
 
     return {
